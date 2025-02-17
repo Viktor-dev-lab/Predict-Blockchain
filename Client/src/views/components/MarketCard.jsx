@@ -8,7 +8,9 @@ const MarketCard = ({ category, hashtags, question, time, yesPercent, noPercent 
       <div className="hashtags">{hashtags.map((tag, index) => (
         <span key={index}>#{tag} </span> // ✅ Thêm `key` khi map
       ))}</div>
-      <h3 className="question">{question}</h3>
+      <h3 className="question" data-fulltext={question}>{question}</h3>
+
+
       <div className="time">{time}</div>
       <div className="buttons">
         <button className="yes-button">YES {yesPercent}%</button>

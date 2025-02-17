@@ -38,9 +38,9 @@ export function CreateMarket({ onCreate }) {
   const getWalletBalance = async (provider, address) => {
     try {
       const balance = await provider.getBalance(address);
-      setWalletBalance(ethers.formatEther(balance));
+      setWalletBalance(ethers.utils.formatEther(balance));
     } catch (err) {
-      setError("Không thể lấy số dư ví.");
+      setError(`Không thể lấy số dư ví. ${err}`);
     }
   };
 

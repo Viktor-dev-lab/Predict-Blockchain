@@ -7,7 +7,7 @@ import "../../assets/css/tailwind.css";
 Chart.register(...registerables);
 
 export default function Profile() {
-  const [user, setUser] = useState({
+  const [user, ] = useState({
     name: "John Doe",
     bio: "Crypto Betting Enthusiast | Blockchain Expert",
     avatar: "https://via.placeholder.com/150",
