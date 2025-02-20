@@ -120,3 +120,38 @@ color: #4caf50;
 margin-top: 10px;
 word-break: break-all;
 }
+
+
+
+.form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f6fc; /* Màu chữ sáng */
+}
+
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #30363d;
+  border-radius: 8px;
+  background-color: #161b22;
+  color: #f0f6fc; /* Màu chữ trắng */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #58a6ff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.5);
+}
+
+.form-group select:hover {
+  border-color: #8b949e;
+}
+
+.form-group option {
+  background-color: #161b22;
+  color: #f0f6fc;
+}

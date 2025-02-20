@@ -1,14 +1,12 @@
-import { useParams } from "react-router-dom";
+import DefaultLayout from "../layouts/DefaultLayout";
+import MarketDetailComp from "../components/MarketDetailComp";
 
-function MarketDetail() {
-  const { marketId } = useParams(); // 📌 Lấy marketId từ URL
-
+const MarketDetailPage = () => {
   return (
-    <div>
-      <h2>Chi tiết thị trường</h2>
-      <p>ID Thị Trường: {marketId}</p>
-    </div>
+    <DefaultLayout>
+      <MarketDetailComp />
+    </DefaultLayout>
   );
-}
+};
 
-export default MarketDetail;
+export default MarketDetailPage;

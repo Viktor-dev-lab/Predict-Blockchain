@@ -1,16 +1,21 @@
-import { useState } from "react";
-import { Camera, Wallet } from "lucide-react";
+import React, { useState } from "react";
+import { Camera, Wallet, Users, UserPlus, PlusSquare } from "lucide-react";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import "../../assets/css/tailwind.css";
+import "../../assets/css/Profile.css";
+import Avatar from "../../assets/images/Avatar.jpg";
+import { useNavigate } from "react-router-dom"; // Import điều hướng
+
 
 Chart.register(...registerables);
 
 export default function Profile() {
-  const [user, ] = useState({
+  const navigate = useNavigate(); // Hook điều hướng
+  
+  const [user] = useState({
     name: "John Doe",
     bio: "Crypto Betting Enthusiast | Blockchain Expert",
-    avatar: "https://via.placeholder.com/150",
+    avatar: Avatar,
     balance: "4.32 ETH",
     address: "0x70C2...bF58c",
     history: [
@@ -20,61 +25,111 @@ export default function Profile() {
     ],
   });
 
-  const chartData = {
-    labels: user.history.map((h) => h.date),
-    datasets: [
-      {
-        label: "Betting History",
-        data: user.history.map((h) => (h.outcome === "Win" ? 1 : -1)),
-        borderColor: "#38bdf8",
-        backgroundColor: "rgba(56, 189, 248, 0.2)",
-      },
-    ],
-  };
+  const [friends, setFriends] = useState([
+    { id: 1, name: "Alice", avatar: Avatar },
+    { id: 2, name: "Bob", avatar: Avatar },
+    { id: 1, name: "Alice", avatar: Avatar },
+    { id: 2, name: "Bob", avatar: Avatar },
+    { id: 1, name: "Alice", avatar: Avatar },
+    { id: 2, name: "Bob", avatar: Avatar },
+    { id: 1, name: "Alice", avatar: Avatar },
+    { id: 2, name: "Bob", avatar: Avatar },
+    { id: 1, name: "Alice", avatar: Avatar },
+    { id: 2, name: "Bob", avatar: Avatar },
+  ]);
+
+  const [groups, setGroups] = useState([
+    { id: 1, name: "Crypto Kings" },
+    { id: 2, name: "Betting Masters" },
+  ]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white p-8">
-      <div className="max-w-5xl mx-auto bg-gray-900 p-8 rounded-2xl shadow-lg">
+    <div className="profile-container">
+      <div className="profile-card">
         {/* Profile Header */}
-        <div className="flex items-center gap-6 border-b pb-6 border-gray-700">
-          <div className="relative w-24 h-24">
-            <img
-              src={user.avatar}
-              alt="Avatar"
-              className="w-full h-full rounded-full border-4 border-gray-700 object-cover"
-            />
-            <button className="absolute bottom-0 right-0 bg-gray-700 p-2 rounded-full hover:bg-gray-600">
-              <Camera className="w-5 h-5 text-white" />
+        <div className="profile-header">
+          <div className="avatar-wrapper">
+            <img src={user.avatar} alt="Avatar" className="avatar" />
+            <button className="camera-button">
+              <Camera className="icon" />
             </button>
           </div>
           <div>
-            <h2 className="text-3xl font-bold">{user.name}</h2>
-            <p className="text-gray-400 text-sm">{user.bio}</p>
+            <h2 className="user-name">{user.name}</h2>
+            <p className="user-bio">{user.bio}</p>
           </div>
         </div>
 
-        {/* Wallet Balance */}
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          <div className="p-6 bg-gray-800 rounded-xl shadow-lg flex items-center justify-between">
-            <div>
-              <h3 className="text-gray-400 text-sm">Wallet Balance</h3>
-              <p className="text-2xl font-bold text-white">{user.balance}</p>
-            </div>
-            <Wallet className="w-8 h-8 text-blue-400" />
+        {/* Wallet Information */}
+        <div className="wallet-section">
+          <div className="wallet-box">
+            <h3>Wallet Balance</h3>
+            <p className="wallet-value">{user.balance}</p>
+            <Wallet className="wallet-icon" />
           </div>
-
-          <div className="p-6 bg-gray-800 rounded-xl shadow-lg flex items-center justify-between">
-            <div>
-              <h3 className="text-gray-400 text-sm">Wallet Address</h3>
-              <p className="text-lg font-bold text-white">{user.address}</p>
-            </div>
+          <div className="wallet-box">
+            <h3>Wallet Address</h3>
+            <p className="wallet-value">{user.address}</p>
           </div>
         </div>
 
         {/* Betting History */}
-        <div className="mt-8 bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h3 className="text-xl font-bold mb-4">Betting History</h3>
-          <Line key={JSON.stringify(user.history)} data={chartData} />
+        <div className="history-section">
+          <h3>Betting History</h3>
+          <Line key={JSON.stringify(user.history)} data={{
+            labels: user.history.map((h) => h.date),
+            datasets: [
+              {
+                label: "Betting History",
+                data: user.history.map((h) => (h.outcome === "Win" ? 1 : -1)),
+                borderColor: "#38bdf8",
+                backgroundColor: "rgba(56, 189, 248, 0.2)",
+              },
+            ],
+          }} />
+        </div>
+      </div>
+
+      {/* Friends & Groups Section */}
+      <div className="friends-groups">
+        {/* Friends List */}
+        <div className="friends-list">
+          <div className="friends-header">
+            <h3>Friends</h3>
+            <button className="add-button"  onClick={() => navigate("/add-friend")}>
+              <UserPlus className="icon" /> Add Friend
+            </button>
+          </div>
+          <div>
+          <ul>
+            {friends.map((friend) => (
+              <li key={friend.id} className="friend-item">
+                <img src={friend.avatar} alt={friend.name} className="friend-avatar" />
+                <span>{friend.name}</span>
+              </li>
+            ))}
+          </ul>
+          </div>
+        </div>
+
+        {/* Groups List */}
+        <div className="groups-list">
+          <div className="groups-header">
+            <h3>Groups</h3>
+            <button className="add-button" onClick={() => navigate("/add-group")}>
+              <PlusSquare className="icon" /> Create Group
+            </button>
+          </div>
+          <div>
+          <ul>
+            {groups.map((group) => (
+              <li key={group.id} className="group-item">
+                <Users className="group-icon" />
+                <span>{group.name}</span>
+              </li>
+            ))}
+          </ul>
+          </div>
         </div>
       </div>
     </div>

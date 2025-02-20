@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import "../../assets/css/CreateMarket.css";
 
-export function CreateMarket({ onCreate }) {
+export function CreateMarket() {
   const [marketData, setMarketData] = useState({
     name: "",
     description: "",
     category: "",
-    options: ["", ""],
+    options: ["",""],
     endTime: "",
     validationSource: "",
     startingLiquidity: "",
@@ -18,6 +18,7 @@ export function CreateMarket({ onCreate }) {
   const [account, setAccount] = useState(null);
   const [walletBalance, setWalletBalance] = useState("0");
 
+  // Kết nối ví
   const connectWallet = async () => {
     try {
         if (!window.ethereum) throw new Error("Vui lòng cài đặt MetaMask!");
@@ -32,9 +33,9 @@ export function CreateMarket({ onCreate }) {
     } catch (err) {
         setError(err.message);
     }
-};
+  };
 
-
+  // Lấy ví
   const getWalletBalance = async (provider, address) => {
     try {
       const balance = await provider.getBalance(address);
@@ -53,6 +54,7 @@ export function CreateMarket({ onCreate }) {
     }
   }, [account]);
 
+  // Xử lí validate khi submit và post data
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -72,7 +74,22 @@ export function CreateMarket({ onCreate }) {
         throw new Error("Số dư khởi tạo phải là số hợp lệ!");
       }
 
-      await onCreate(marketData);
+      // Gửi dữ liệu tới backend thông qua API call
+      const response = await fetch("http://localhost:5000/api/create-market", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(marketData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Có lỗi xảy ra khi gửi dữ liệu lên server!");
+      }
+
+
+      // Sau khi gửi thành công, reset lại form
+
       setMarketData({
         name: "",
         description: "",
@@ -96,6 +113,8 @@ export function CreateMarket({ onCreate }) {
         {error && <div className="error-message">{error}</div>}
 
         <form className="market-form" onSubmit={handleSubmit}>
+
+          {/* name tiêu đề */}
           <div className="form-group">
             <label>Tên thị trường</label>
             <input
@@ -107,6 +126,7 @@ export function CreateMarket({ onCreate }) {
             />
           </div>
 
+          {/* description tiêu đề */}
           <div className="form-group">
             <label>Mô tả</label>
             <textarea
@@ -117,16 +137,21 @@ export function CreateMarket({ onCreate }) {
             />
           </div>
 
+          {/*Danh mục */}
           <div className="form-group">
             <label>Danh mục</label>
-            <input
-              type="text"
-              placeholder="Danh mục (ví dụ: Crypto, NFT, AI)"
+            <select
               value={marketData.category}
               onChange={(e) => setMarketData({ ...marketData, category: e.target.value })}
               required
-            />
+            >
+              <option value="" disabled>Chọn danh mục</option>
+              <option value="Sports">Sport</option>
+              <option value="Crypto">Crypto</option>
+              <option value="Politics">Politics</option>
+            </select>
           </div>
+
 
           <div className="form-group">
             <label>Thời gian kết thúc</label>
@@ -185,9 +210,14 @@ export function CreateMarket({ onCreate }) {
             </button>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={loading}
+          >
             {loading ? "⏳ Đang tạo..." : "🚀 Tạo Thị Trường"}
           </button>
+
         </form>
       </div>
 
