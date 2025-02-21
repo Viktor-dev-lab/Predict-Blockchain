@@ -2,9 +2,10 @@ import "../../assets/css/Header.css";
 import { useState } from "react";
 import { ethers } from "ethers";
 import Swal from "sweetalert2";
+import { useAppContext } from "../../context/AppProvider.jsx";
 
 const Navbar = () => {
-  const [account, setAccount] = useState("");
+  const {account, setAccount} = useAppContext();
 
   const connectWallet = async () => {
     if (!window.ethereum) {

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useAppContext } from "../../context/AppProvider.jsx";
 
 function TradeBox() {
-  const [price, setPrice] = useState(39);
+  const {price, setPrice} = useAppContext();
   const [shares, setShares] = useState(0);
 
   const total = (price * shares) / 100;
@@ -21,8 +22,8 @@ function TradeBox() {
       </div>
 
       <div className="flex mt-4 space-x-2">
-        <button className={opinion === "yes" ? "flex-1 bg-green-500 py-2 rounded-lg" : "flex-1 bg-gray-700 text-gray-400 py-2 rounded-lg"} onClick={()=>{setOpinion("yes")}}>Yes 39¢</button>
-        <button className={opinion === "no" ? "flex-1 bg-green-500 py-2 rounded-lg" : "flex-1 bg-gray-700 text-gray-400 py-2 rounded-lg"} onClick={()=>{setOpinion("no")}}>No 62¢</button>
+        <button className={opinion === "yes" ? "flex-1 bg-green-500 py-2 rounded-lg" : "flex-1 bg-gray-700 text-gray-400 py-2 rounded-lg"} onClick={()=>{setOpinion("yes")}}>{price} $</button>
+        <button className={opinion === "no" ? "flex-1 bg-green-500 py-2 rounded-lg" : "flex-1 bg-gray-700 text-gray-400 py-2 rounded-lg"} onClick={()=>{setOpinion("no")}}>{price} $</button>
       </div>
 
       <div className="mt-4">
@@ -34,7 +35,7 @@ function TradeBox() {
           >
             –
           </button>
-          <span className="mx-auto">{price}¢</span>
+          <span className="mx-auto">{price} $</span>
           <button className="text-gray-400" onClick={() => setPrice(price + 1)}>+</button>
         </div>
       </div>

@@ -28,14 +28,14 @@ export default function Profile() {
   const [friends, setFriends] = useState([
     { id: 1, name: "Alice", avatar: Avatar },
     { id: 2, name: "Bob", avatar: Avatar },
-    { id: 1, name: "Alice", avatar: Avatar },
-    { id: 2, name: "Bob", avatar: Avatar },
-    { id: 1, name: "Alice", avatar: Avatar },
-    { id: 2, name: "Bob", avatar: Avatar },
-    { id: 1, name: "Alice", avatar: Avatar },
-    { id: 2, name: "Bob", avatar: Avatar },
-    { id: 1, name: "Alice", avatar: Avatar },
-    { id: 2, name: "Bob", avatar: Avatar },
+    { id: 3, name: "Alice", avatar: Avatar },
+    { id: 4, name: "Bob", avatar: Avatar },
+    { id: 5, name: "Alice", avatar: Avatar },
+    { id: 6, name: "Bob", avatar: Avatar },
+    { id: 7, name: "Alice", avatar: Avatar },
+    { id: 8, name: "Bob", avatar: Avatar },
+    { id: 9, name: "Alice", avatar: Avatar },
+    { id: 10, name: "Bob", avatar: Avatar },
   ]);
 
   const [groups, setGroups] = useState([

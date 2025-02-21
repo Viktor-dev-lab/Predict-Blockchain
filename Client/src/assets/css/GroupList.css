@@ -109,6 +109,11 @@
     gap: 24px;
     margin-top: 20px;
   }
+
+  .group-type-section{
+    display: flex;
+    justify-content: space-evenly;
+  }
   
   @media (max-width: 768px) {
     .group-cards-container {

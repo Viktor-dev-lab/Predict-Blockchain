@@ -4,6 +4,8 @@ const app = express();
 const database = require("./config/database.js") // Nhúng từ bên file config cấu hình database
 const port = process.env.PORT // Cổng 3000
 const cors = require('cors'); // 🛠 Import cors
+const axios = require('axios');
+const bodyParser = require('body-parser');
 
 
 app.use(express.json()); // Middleware để đọc JSON
@@ -20,5 +22,6 @@ routeServer(app)
 
 database.connect();
 
-
-app.listen(port, () => {console.log("Server running 5000 port")})
+app.listen(port, () => {
+  console.log("Server running 5000 port")
+})

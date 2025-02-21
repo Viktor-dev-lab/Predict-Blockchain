@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import "../../assets/css/CreateMarket.css";
+import Swal from 'sweetalert2';
+
 
 export function CreateMarket() {
   const [marketData, setMarketData] = useState({
@@ -74,7 +76,7 @@ export function CreateMarket() {
         throw new Error("Số dư khởi tạo phải là số hợp lệ!");
       }
 
-      // Gửi dữ liệu tới backend thông qua API call
+      // POST API c
       const response = await fetch("http://localhost:5000/api/create-market", {
         method: "POST",
         headers: {
@@ -99,6 +101,15 @@ export function CreateMarket() {
         validationSource: "",
         startingLiquidity: "",
       });
+
+      // Hiển thị thông báo thành công
+      Swal.fire({
+        title: "Thành công!",
+        text: "Thị trường mới đã được tạo.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
     } catch (err) {
       setError(err.message);
     } finally {

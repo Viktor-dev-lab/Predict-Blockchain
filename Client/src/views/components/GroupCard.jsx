@@ -1,4 +1,7 @@
 export function GroupCard({ group }) {
+  // Kiểm tra nếu group.members tồn tại và là một mảng
+  const memberCount = Array.isArray(group.members) ? group.members.length : 0;
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
       <h3 className="text-xl font-semibold text-gray-800 mb-2">{group.name}</h3>
@@ -12,7 +15,7 @@ export function GroupCard({ group }) {
           {group.isPrivate ? 'Private' : 'Public'}
         </span>
         <span className="text-gray-500 text-sm">
-          {group.members.length} Members
+          {memberCount} Members
         </span>
       </div>
     </div>

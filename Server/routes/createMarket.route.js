@@ -8,5 +8,7 @@ const controller = require('../controller/createMarket.controller')
 // route
 router.post('/', controller.postMarket)
 router.get('/', controller.getMarket)
+router.get('/:marketId', controller.getMarketDetail)
+
 
 module.exports = router

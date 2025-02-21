@@ -14,6 +14,7 @@ import {
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../assets/css/Sidebar.css";
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
 
@@ -31,35 +32,35 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Menu */}
       <nav className="sidebar-menu">
-        <a href="/create">
+        <Link to="/create">
           <FontAwesomeIcon icon={faPlus} className="icon" /> <span>Create</span>
-        </a>
-        <a href="/markets">
+        </Link>
+        <Link to="/markets">
           <FontAwesomeIcon icon={faChartLine} className="icon" /> <span>Live Markets</span>
-        </a>
-        <a href="/validate">
+        </Link>
+        {/* <Link to="/validate">
           <FontAwesomeIcon icon={faCheck} className="icon" /> <span>Validate</span>
-        </a>
-        <a href="/nft">
+        </Link>
+        <Link to="/nft">
           <FontAwesomeIcon icon={faPaintBrush} className="icon" /> <span>NFT Marketplace</span>
-        </a>
-        <a href="/profile">
+        </Link> */}
+        <Link to="/profile">
           <FontAwesomeIcon icon={faUser} className="icon" /> <span>Profile</span>
-        </a>
-        <a href="/leader">
+        </Link>
+        <Link to="/leader">
           <FontAwesomeIcon icon={faTrophy} className="icon" /> <span>Leaderboard</span>
-        </a>
-        <a href="/docs">
+        </Link>
+        {/* <Link to="/docs">
           <FontAwesomeIcon icon={faFileAlt} className="icon" /> <span>Documentation</span>
-        </a>
-        <a href="/settings">
+        </Link>
+        <Link to="/settings">
           <FontAwesomeIcon icon={faCog} className="icon" /> <span>Settings</span>
-        </a>
-        <a href="/notifications">
+        </Link>
+        <Link to="/notifications">
           <FontAwesomeIcon icon={faBell} className="icon" />
           <span>Notifications</span>
           <span className="badge">3</span>
-        </a>
+        </Link> */}
       </nav>
     </div>
   );

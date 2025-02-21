@@ -1,10 +1,20 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [market, setMarket] = useState([]);
+  const [price, setPrice] = useState();
+  const [account, setAccount] = useState("");
+
+  useEffect(() => {
+    if (market) {
+      setPrice(market.startingLiquidity);
+    }
+  }, [market]);
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -15,6 +25,12 @@ const AppProvider = ({ children }) => {
         isSidebarOpen,
         setIsSidebarOpen,
         toggleSidebar,
+        market,
+        setMarket,
+        price,
+        setPrice,
+        account,
+        setAccount,
       }}
     >
       {children}
@@ -23,7 +39,7 @@ const AppProvider = ({ children }) => {
 };
 
 AppProvider.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.node.isRequired,
 };
 
 export default AppProvider;

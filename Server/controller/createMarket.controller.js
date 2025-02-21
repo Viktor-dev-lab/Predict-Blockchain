@@ -59,12 +59,29 @@ module.exports.postMarket = async (req, res) => {
 // [GET] /api/create-market
 module.exports.getMarket = async (req, res) => {
   try {
-    const dataMarket = await Market.find();
-    console.log(dataMarket);
-
+    const dataMarket = await Market.find()
     res.json(dataMarket);
   }
   catch(err){
-
+    console.error("Lỗi server:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+// [GET] /api/:marketId
+
+module.exports.getMarketDetail = async (req, res) => {
+  try {
+    const { marketId } = req.params;
+    const market = await Market.findOne({_id: marketId});
+
+    if (market) {
+      return res.json(market);
+    } else {
+      return res.status(404).json({ error: "Market not found" });
+    }
+  } catch (err) {
+    console.error("Lỗi server:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
